@@ -5,6 +5,7 @@ import java.util.Random;
 public class Collector {
     
     Random rand = new Random();
+    Collector(){ 
         
     Dots newDot1 = new Dots("R",rand.nextInt(44),rand.nextInt(44));
     Dots newDot2 = new Dots("G",rand.nextInt(44),rand.nextInt(44));
@@ -18,5 +19,10 @@ public class Collector {
     Dots newDot10 = new Dots("R",rand.nextInt(44),rand.nextInt(44));
     Dots newDot11 = new Dots("G",rand.nextInt(44),rand.nextInt(44));
     Dots newDot12 = new Dots("B",rand.nextInt(44),rand.nextInt(44));
-    
+   
+    Players player1 = new Players("P1",5,0,0);
+    Players player2 = new Players("P2",6,0,44);
+    Players player3 = new Players("P3",2,44,0);
+    Players player4 = new Players("P4",8,44,44);
+    }
 }
