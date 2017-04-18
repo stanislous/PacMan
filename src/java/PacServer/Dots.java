@@ -3,9 +3,9 @@ package PacServer;
 //import javax.json.Json;
 //import java.util.Random;
 
-class Dots {
+ class Dots {
     
-//    Random rand = new Random();
+//  Random rand = new Random();
     int x;
     int y;
     String color;
@@ -17,8 +17,5 @@ class Dots {
         this.color = color;
         
     }
-   
     
-//    int n = rand.nextInt(44) + 1;
-
 }
