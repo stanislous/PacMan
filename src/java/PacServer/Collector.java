@@ -48,15 +48,18 @@ public class Collector {
     
     public void DotFormat(){
         
-        JSONArray array1 = new JSONArray();
-//      JSONArray array2 = new JSONArray();
+        ArrayList<JSONArray> array_list=new ArrayList<JSONArray>();
+        JSONArray main_array = new JSONArray();
         
-        array1.add(dot_list.get(1).color);
-        array1.add(dot_list.get(1).x);
-        array1.add(dot_list.get(1).y);
-        
-        
-        obj.put("DOTS", array1);
+        for (int i = 0; i < 12; i++) {
+            array_list.add(new JSONArray());
+            array_list.get(i).add(dot_list.get(i).color);
+            array_list.get(i).add(dot_list.get(i).x);
+            array_list.get(i).add(dot_list.get(i).y);
+            main_array.add(array_list.get(i));
+        }
+      
+        obj.put("DOTS", main_array);
 //      obj.put("PLAYERS", array2);
         
         System.out.print(obj.toString());
