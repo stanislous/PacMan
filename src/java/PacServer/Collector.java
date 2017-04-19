@@ -60,19 +60,33 @@ public class Collector {
         }
       
         obj.put("DOTS", main_array);
-//      obj.put("PLAYERS", array2);
+        //System.out.print(obj.toString());
         
-        System.out.print(obj.toString());
+       
     }
     
     public void PlayerFormat(){
-        obj.put("PLAYERS", new JSONArray());
+        
+        ArrayList<JSONArray> array_list=new ArrayList<JSONArray>();
+        JSONArray main_array = new JSONArray();
+        
+        for (int i = 0; i < 4; i++) {
+            array_list.add(new JSONArray());
+            array_list.get(i).add(player_list.get(i).player);
+            array_list.get(i).add(player_list.get(i).score);
+            array_list.get(i).add(player_list.get(i).x);
+            array_list.get(i).add(player_list.get(i).y);
+            main_array.add(array_list.get(i));
+        }
+     
+        obj.put("PLAYERS", main_array);
+        
     }
 
-    public static void main(String argc[]){
-        
-        Collector collector = new Collector();
-        collector.DotFormat();
-        
-    }
+//    public static void main(String argc[]){
+//        
+//        Collector collector = new Collector();
+//        collector.DotFormat();
+//        collector.PlayerFormat();
+//    }
 }
