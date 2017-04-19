@@ -25,7 +25,7 @@ public class PacServer extends HttpServlet {
         
             try(PrintWriter out = response.getWriter()){
                 out.print("data:");
-                out.print(collector.DotFormat());
+//                out.print(collector.DotFormat());
                 out.print(collector.PlayerFormat());
                 out.println();
                 out.flush();
