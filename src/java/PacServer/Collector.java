@@ -1,31 +1,34 @@
 package PacServer;
 
 import java.util.Random;
-import org.json.simple.*;
+import javax.json.*;
 import java.util.ArrayList;
 
 public class Collector {
      
     Random rand = new Random();
-    static JSONObject obj = new JSONObject();
-    ArrayList<Dots> dot_list=new ArrayList<Dots>();
-    ArrayList<Players> player_list=new ArrayList<Players>();
+    JsonObjectBuilder obj = Json.createObjectBuilder();
+    JsonArrayBuilder dot_list = Json.createArrayBuilder();
+    JsonArrayBuilder player_list = Json.createArrayBuilder();
+    static JsonArrayBuilder main_list = Json.createArrayBuilder();
     
+    //ArrayList<Dots> dot_list;
+    //ArrayList<Players> player_list;
     
     Collector(){ 
         
         for (int i = 0; i < 12; i++) {
-            dot_list.add(new Dots(Color(), rand.nextInt(44), rand.nextInt(44)));
+           player_list.add(rand.nextInt(44));
         }
+        
+        JsonArray dot_list2 = dot_list.build();
         
         for (int i = 1; i <= 4; i++) {
             player_list.add(new Players(player(i), i, rand.nextInt(44), rand.nextInt(44)));
-            
         }
-
     }
     
-    public String Color(){
+    private String Color(){
         int color = rand.nextInt(2);
         if (color == 0) {
             return "R";
@@ -34,7 +37,7 @@ public class Collector {
         }else
             return "B";   
     }
-    public String player(int i){
+    private String player(int i){
         if (i==1) {
             return "P1";
         }else if (i==2) {
@@ -46,13 +49,13 @@ public class Collector {
     }
     
     
-    public void DotFormat(){
+    public String DotFormat(){
         
-        ArrayList<JSONArray> array_list=new ArrayList<JSONArray>();
-        JSONArray main_array = new JSONArray();
+        ArrayList<JsonArray> array_list=new ArrayList<JsonArray>();
+        JsonArray main_array;
         
         for (int i = 0; i < 12; i++) {
-            array_list.add(new JSONArray());
+            array_list.add(JsonArray);
             array_list.get(i).add(dot_list.get(i).color);
             array_list.get(i).add(dot_list.get(i).x);
             array_list.get(i).add(dot_list.get(i).y);
@@ -60,12 +63,12 @@ public class Collector {
         }
       
         obj.put("DOTS", main_array);
-        //System.out.print(obj.toString());
-        
        
+        //System.out.print(obj.toString()); 
+       return obj.toString();
     }
     
-    public void PlayerFormat(){
+    public String PlayerFormat(){
         
         ArrayList<JSONArray> array_list=new ArrayList<JSONArray>();
         JSONArray main_array = new JSONArray();
@@ -80,13 +83,13 @@ public class Collector {
         }
      
         obj.put("PLAYERS", main_array);
-        
+        return obj.toString();
     }
 
 //    public static void main(String argc[]){
 //        
 //        Collector collector = new Collector();
-//        collector.DotFormat();
-//        collector.PlayerFormat();
+//        System.out.println(collector.DotFormat());
+//        System.out.println(collector.PlayerFormat());
 //    }
 }

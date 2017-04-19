@@ -2,7 +2,7 @@
 var response;
  const source = new EventSource('stream');
     source.onmessage = function (e) {
-    this.response = JSON.parse(e.data);
+     response = JSON.parse(e.data);
     };
 
 /*Canvas stuff*/
