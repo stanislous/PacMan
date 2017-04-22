@@ -1,10 +1,9 @@
-
 var response;
- const source = new EventSource('stream');
-    source.onmessage = function (e) {
-     response = JSON.parse(e.data);
-    };
 
+source = new EventSource('stream');
+source.onmessage = function (e) {
+    response = JSON.parse(e.data);
+};
 /*Canvas stuff*/
 var canvas = $("#canvas");
 var ctx = canvas[0].getContext("2d");
@@ -133,18 +132,6 @@ $(document).keydown(function (e) {
 });         
                
 // TODO Send Keystroke to server
-
-var Keystroke = {
-
-	"up" : "UP",
-	"down" : "DOWN",
-	"left" : "LEFT",
-	"right" : "RIGHT" 
-
-};
-
-var myJSON = JSON.stringify(Keystroke);
-
 			   
 function sendPlayerPosition(){    
 	if(true){
@@ -157,8 +144,8 @@ function sendPlayerPosition(){
 		return;
 	} 
 }
-        
-  
+
+
 //XMLHttpRequest is normally used for fetch AJAX format data.But 
 //it supports JSON or even plain text. 
 
