@@ -14,14 +14,28 @@ public class Collector {
         
         JsonArrayBuilder dot_list = Json.createArrayBuilder();
         
-        for (int i = 1; i <= 4; i++) {
             
             dot_list.add(Json.createArrayBuilder()
-                            .add(player(i))
+                            .add(player(1))
                             .add(rand.nextInt(10))
-                            .add(rand.nextInt(44))
-                            .add(rand.nextInt(44)).build());
-        }
+                            .add(0)
+                            .add(0).build());
+             dot_list.add(Json.createArrayBuilder()
+                            .add(player(2))
+                            .add(rand.nextInt(10))
+                            .add(0)
+                            .add(44).build());
+              dot_list.add(Json.createArrayBuilder()
+                            .add(player(3))
+                            .add(rand.nextInt(10))
+                            .add(44)
+                            .add(0).build());
+               dot_list.add(Json.createArrayBuilder()
+                            .add(player(4))
+                            .add(rand.nextInt(10))
+                            .add(44)
+                            .add(44).build());
+              
         
         return dot_list;
     

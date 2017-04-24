@@ -2,7 +2,7 @@ var response;
 
 source = new EventSource('stream');
 source.onmessage = function (e) {
-    response = JSON.parse(e.data);
+    response = JSON.parse(e.data);  
 };
 /*Canvas stuff*/
 var canvas = $("#canvas");
@@ -138,7 +138,7 @@ function sendPlayerPosition(){
 		var xmlhttprequest = new XMLHttpRequest();  //for firefox browser      
 		var keypress = document.getElementById("keypress").value;
 		//send keystroke to servlet
-		xmlhttprequest.open("POST","UpdateGame?keypress=" + keypress,true);
+		xmlhttprequest.open("POST","PacServer?keypress=" + keypress,true);
 		xmlhttprequest.send();
 	}else{ 
 		return;
