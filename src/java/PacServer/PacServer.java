@@ -29,11 +29,10 @@ public class PacServer extends HttpServlet {
         response.setContentType("text/event-stream");
 
         try (PrintWriter out = response.getWriter()) {
-            out.println("Access doGet!!");
+           
             while (!Thread.interrupted()) {
                 out.println();
                 out.flush();
-                Logger.getGlobal().log(Level.INFO, "Sent " + temp);
                 synchronized (myGameLogic) {
                     myGameLogic.wait();
                     out.print("data: ");
@@ -57,7 +56,7 @@ public class PacServer extends HttpServlet {
             temp = collector.objectSender().toString();
             myGameLogic.keyStroke(key);
             myGameLogic.notifyAll();
-            Logger.getGlobal().log(Level.INFO, "Received " + temp);
+            
         }
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }

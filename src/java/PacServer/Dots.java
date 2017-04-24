@@ -2,6 +2,7 @@ package PacServer;
 
 import javax.json.Json;
 import java.util.Random;
+import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 
 class Dots {
@@ -18,35 +19,14 @@ class Dots {
         this.color = color;
 
     }
+    
+    Dots newDots = new Dots(color, x, y);
 
-    private String Color() {
-        int color = rand.nextInt(3);
-        switch (color) {
-            case 0:
-                return "R";
-            case 1:
-                return "G";
-            default:
-                return "B";
-        }
+    JsonArray DotFormat() {
+ 
+        return Json.createArrayBuilder()
+                    .add(this.color)
+                    .add(this.x)
+                    .add(this.y).build();
     }
-
-    JsonArrayBuilder DotFormat() {
-
-        JsonArrayBuilder player_list = Json.createArrayBuilder();
-
-        for (int i = 0; i < 12; i++) {
-
-            player_list.add(Json.createArrayBuilder()
-                    .add(Color())
-                    .add(rand.nextInt(44))
-                    .add(rand.nextInt(44)).build());
-        }
-        return player_list;
-    }
-    // @Override
-    // public String toString(){
-    //return Integer.toString()+"+"+Integer.toString(dots.y);
-
-    // }
 }
