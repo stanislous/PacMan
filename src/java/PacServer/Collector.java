@@ -20,23 +20,22 @@ public class Collector {
                             .add(rand.nextInt(10))
                             .add(0)
                             .add(0).build());
-             dot_list.add(Json.createArrayBuilder()
+            dot_list.add(Json.createArrayBuilder()
                             .add(player(2))
                             .add(rand.nextInt(10))
                             .add(0)
                             .add(44).build());
-              dot_list.add(Json.createArrayBuilder()
+            dot_list.add(Json.createArrayBuilder()
                             .add(player(3))
                             .add(rand.nextInt(10))
                             .add(44)
                             .add(0).build());
-               dot_list.add(Json.createArrayBuilder()
+            dot_list.add(Json.createArrayBuilder()
                             .add(player(4))
                             .add(rand.nextInt(10))
                             .add(44)
                             .add(44).build());
-              
-        
+ 
         return dot_list;
     
     }
@@ -65,7 +64,7 @@ public class Collector {
         return obj;
     }
 
-     private String Color(){
+    private String Color(){
         int color = rand.nextInt(3);
         switch (color) {
             case 0:

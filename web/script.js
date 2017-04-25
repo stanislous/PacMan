@@ -1,9 +1,15 @@
+
+/*	
+	Sample response
+	Your server response should be in this format to draw the canvas
+*/
 var response;
 
 source = new EventSource('stream');
 source.onmessage = function (e) {
     response = JSON.parse(e.data);  
-};
+   
+
 /*Canvas stuff*/
 var canvas = $("#canvas");
 var ctx = canvas[0].getContext("2d");
@@ -122,7 +128,7 @@ function updateScoreboard(id, score){
 	$(scoreId).text(id);
 	$(scoreValue).text(score);
 } 
-
+};
 //Lets add the keyboard controls now
 $(document).keydown(function (e) {
 	var key = e.which;             
@@ -138,23 +144,9 @@ function sendPlayerPosition(){
 		var xmlhttprequest = new XMLHttpRequest();  //for firefox browser      
 		var keypress = document.getElementById("keypress").value;
 		//send keystroke to servlet
-		xmlhttprequest.open("POST","PacServer?keypress=" + keypress,true);
+		xmlhttprequest.open("POST","stream?keypress=" + keypress,true);
 		xmlhttprequest.send();
 	}else{ 
 		return;
 	} 
 }
-
-
-//XMLHttpRequest is normally used for fetch AJAX format data.But 
-//it supports JSON or even plain text. 
-
-// XMLHttpRequest (XHR) is an API that can be used by JavaScript, JScript,
-// VBScript, and other web browser scripting languages to transfer and manipulate
-// XML data to and from a webserver using HTTP, establishing an independent
-// connection channel between a webpage's Client-Side and Server-Side.
-
-
-
-
-// <script> document.write("OK") </script> is the print statement in JS

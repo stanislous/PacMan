@@ -2,13 +2,12 @@ package PacServer;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -17,33 +16,40 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PacServer", urlPatterns = {"/stream"})
 public class PacServer extends HttpServlet {
 
-    Collector collector = new Collector();
-
     final gameLogic myGameLogic = new gameLogic();
-
-    String temp;
+    Players play;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/event-stream");
+        response.setContentType("text/event-stream, charset=UTF-8");
 
         try (PrintWriter out = response.getWriter()) {
-           
+
+//            String Player = null;
+//            String P1, P2, P3, P4;
+//            HttpSession session = request.getSession(false);
+//            if (session == null) {
+//                session.setAttribute("PlayerID", myGameLogic.getPlayer());
+//            } else {
+//                session.getAttribute(Player);
+//            }
+
             while (!Thread.interrupted()) {
-                out.println();
-                out.flush();
                 synchronized (myGameLogic) {
-                    myGameLogic.wait();
+
                     out.print("data: ");
-                    out.println(temp);
+                    out.println(myGameLogic.completeJsonObject());
+                    out.println();
+                    out.flush();
+                    myGameLogic.wait();
+
                 }
             }
 
         } catch (Exception e) {
             throw new ServletException(e);
         }
-
     }
 
     @Override
@@ -53,10 +59,8 @@ public class PacServer extends HttpServlet {
         String key = request.getParameter("keypress");
 
         synchronized (myGameLogic) {
-            temp = collector.objectSender().toString();
             myGameLogic.keyStroke(key);
             myGameLogic.notifyAll();
-            
         }
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }

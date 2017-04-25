@@ -1,18 +1,16 @@
 package PacServer;
 
-import java.util.Random;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 
 class Players {
 
-    Random rand = new Random();
-
     int x;
     int y;
     int score;
     String player;
+    boolean assigned;
 
     Players(String player, int score, int x, int y) {
 
@@ -20,17 +18,23 @@ class Players {
         this.y = y;
         this.player = player;
         this.score = score;
+        this.assigned = false;
+
     }
 
-    Players newPlayers = new Players(player, score, x, y);
+//        Players newPlayers = new Players(player, score, x, y);
 
+    
     JsonArray PlayerFormat() {
 
-        return Json.createArrayBuilder()
-                .add(this.player)
-                .add(this.score)
-                .add(this.x)
-                .add(this.y).build();
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+
+        arrayBuilder.add(this.player);
+        arrayBuilder.add(this.score);
+        arrayBuilder.add(this.x);
+        arrayBuilder.add(this.y);
+
+        return arrayBuilder.build();
         
     }
 
