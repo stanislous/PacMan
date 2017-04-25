@@ -11,8 +11,6 @@ import javax.json.JsonObject;
  */
 public class gameLogic {
 
-    //Players players;
-    //Dots dots;
     HashMap<String, Dots> foodsMap;
     HashMap<String, Players> playersMap;
     final static int v = 40;
@@ -30,10 +28,10 @@ public class gameLogic {
 
     Collector collector = new Collector();
 
-    void keyStroke(String keyStroke) {
+    void keyStroke(String keyStroke,String player) {
         int key = Integer.parseInt(keyStroke);
-        updatePlayerPosition(key);
-        eatFoods();
+        updatePlayerPosition(key,player);
+        eatFoods(player);
     }
 
     void insertFood() {        //insert food items randomly and put them into hashmap
@@ -107,12 +105,12 @@ public class gameLogic {
         }
     }
 
-    void updatePlayerPosition(int key) {                     //Update the current player position
+    void updatePlayerPosition(int key, String player) {                     //Update the current player position
 
         for (String k : playersMap.keySet()) {
-            Players tmp = playersMap.get("P1");
+            Players tmp = playersMap.get(player);
 
-            if (k.equals("P1")) {
+            if (k.equals(player)) {
                 if (key == 37 && tmp.x != 0) {   //Left
                     tmp.x -= 1;
                 } else if (key == 37 && tmp.x == 0) {
@@ -130,40 +128,35 @@ public class gameLogic {
                 } else if (key == 40 && tmp.y == 44) {
                     tmp.y = 0;
                 }
-                playersMap.put("P1", tmp);
+                playersMap.put(player, tmp);
             }
         }
 
     }
 
-    Players getPlayer() {
-        Players ret = null;
-        for (String k : playersMap.keySet()) {
-            if (!playersMap.get(k).assigned) {
-                playersMap.get(k).assigned = true;
-                ret = playersMap.get(k);
-            }
-        }
-        return ret;
-    }
-
-    void eatFoods() {                                        //Remove foods that is eaten and update score board
+    void eatFoods(String player) {                                        //Remove foods that is eaten and update score board
 
         for (String k : playersMap.keySet()) {
-            Players tmp = playersMap.get("P1");
+            Players tmp = playersMap.get(player);
 
-            if (k.equals("P1")) {
+            if (k.equals(player)) {
                 for (String i : foodsMap.keySet()) {
                     Dots dot = foodsMap.get(i);
                     if (tmp.x == dot.x && tmp.y == dot.y) {
-                        if (dot.color == "R") {
-                            tmp.score += 1;
-                        } else if (dot.color == "G") {
-                            tmp.score += 2;
-                        } else {
+                        if (null == dot.color) {
                             tmp.score += 5;
+                        } else switch (dot.color) {
+                            case "R":
+                                tmp.score += 1;
+                                break;
+                            case "G":
+                                tmp.score += 2;
+                                break;
+                            default:
+                                tmp.score += 5;
+                                break;
                         }
-                        playersMap.put("P1", tmp);
+                        playersMap.put(player, tmp);
                         foodsMap.remove(i);
                     }
 
@@ -171,13 +164,46 @@ public class gameLogic {
             }
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    void player(){
+        
+    }
 
-//    public static void main(String argc[]) {
-//
-//        gameLogic collector = new gameLogic();
-//        collector.insertFood();
-//        collector.insertPlayers();
-//        System.out.println("==============================================================================");
-//        System.out.println(collector.keyStroke(keyStroke));
-//    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

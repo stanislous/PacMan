@@ -10,7 +10,6 @@ class Players {
     int y;
     int score;
     String player;
-    boolean assigned;
 
     Players(String player, int score, int x, int y) {
 
@@ -18,13 +17,9 @@ class Players {
         this.y = y;
         this.player = player;
         this.score = score;
-        this.assigned = false;
 
     }
-
-//        Players newPlayers = new Players(player, score, x, y);
-
-    
+   
     JsonArray PlayerFormat() {
 
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();

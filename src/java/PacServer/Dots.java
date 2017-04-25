@@ -18,7 +18,6 @@ class Dots {
 
     }
 
-//Dots newDots = new Dots(color, x, y);
     JsonArray DotFormat() {
 
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();

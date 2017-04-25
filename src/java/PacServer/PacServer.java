@@ -18,6 +18,7 @@ public class PacServer extends HttpServlet {
 
     final gameLogic myGameLogic = new gameLogic();
     Players play;
+    static int pl = 1;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +29,8 @@ public class PacServer extends HttpServlet {
 
 //            String Player = null;
 //            String P1, P2, P3, P4;
-//            HttpSession session = request.getSession(false);
+            HttpSession session = request.getSession();
+            session.setAttribute("player", pl++ +"");
 //            if (session == null) {
 //                session.setAttribute("PlayerID", myGameLogic.getPlayer());
 //            } else {
@@ -57,9 +59,10 @@ public class PacServer extends HttpServlet {
             throws ServletException, IOException {
 
         String key = request.getParameter("keypress");
-
+        HttpSession session = request.getSession();
+        String attribute = (String) session.getAttribute("player");
         synchronized (myGameLogic) {
-            myGameLogic.keyStroke(key);
+            myGameLogic.keyStroke(key,"P"+attribute);
             myGameLogic.notifyAll();
         }
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
