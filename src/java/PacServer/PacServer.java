@@ -27,15 +27,11 @@ public class PacServer extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
 
-//            String Player = null;
-//            String P1, P2, P3, P4;
-            HttpSession session = request.getSession();
-            session.setAttribute("player", pl++ +"");
-//            if (session == null) {
-//                session.setAttribute("PlayerID", myGameLogic.getPlayer());
-//            } else {
-//                session.getAttribute(Player);
-//            }
+            HttpSession session = request.getSession();      //get the session object
+            if (session.isNew()) {
+                session.setAttribute("player", pl++ + "");   // if it is a new session, set attributes
+            } else {
+            }                                           //else do nothing
 
             while (!Thread.interrupted()) {
                 synchronized (myGameLogic) {
@@ -44,7 +40,7 @@ public class PacServer extends HttpServlet {
                     out.println(myGameLogic.completeJsonObject());
                     out.println();
                     out.flush();
-                    myGameLogic.wait();
+                    myGameLogic.wait();                                  //wait any thread while the game window is updated
 
                 }
             }
@@ -60,10 +56,12 @@ public class PacServer extends HttpServlet {
 
         String key = request.getParameter("keypress");
         HttpSession session = request.getSession();
-        String attribute = (String) session.getAttribute("player");
+        String attribute = (String) session.getAttribute("player");                  //getting the unique which is being played
+
         synchronized (myGameLogic) {
-            myGameLogic.keyStroke(key,"P"+attribute);
-            myGameLogic.notifyAll();
+            myGameLogic.keyStroke(key, "P" + attribute);                 //call game logic and update
+            myGameLogic.playerColide("P" + attribute);
+            myGameLogic.notifyAll();                                  //awaken all the threads which are wait in doGet method.
         }
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }

@@ -26,11 +26,9 @@ public class gameLogic {
 
     Random rand = new Random();
 
-    Collector collector = new Collector();
-
-    void keyStroke(String keyStroke,String player) {
+    void keyStroke(String keyStroke, String player) {
         int key = Integer.parseInt(keyStroke);
-        updatePlayerPosition(key,player);
+        updatePlayerPosition(key, player);
         eatFoods(player);
     }
 
@@ -145,65 +143,86 @@ public class gameLogic {
                     if (tmp.x == dot.x && tmp.y == dot.y) {
                         if (null == dot.color) {
                             tmp.score += 5;
-                        } else switch (dot.color) {
-                            case "R":
-                                tmp.score += 1;
-                                break;
-                            case "G":
-                                tmp.score += 2;
-                                break;
-                            default:
-                                tmp.score += 5;
-                                break;
+                        } else {
+                            switch (dot.color) {
+                                case "R":
+                                    tmp.score += 1;
+                                    break;
+                                case "G":
+                                    tmp.score += 2;
+                                    break;
+                                default:
+                                    tmp.score += 4;
+                                    break;
+                            }
                         }
                         playersMap.put(player, tmp);
                         foodsMap.remove(i);
+//                        if (!foodsMap.isEmpty()) {
+//                        } else {
+//                            winner();
+//                        }
                     }
 
                 }
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    void player(){
-        
+
+    void playerColide(String player) {                          //Find weather there is a collide
+        Players tmp2 = playersMap.get(player);
+
+        for (String k : playersMap.keySet()) {
+            if (playersMap.get(k) != playersMap.get(player)) {
+                Players tmp1 = playersMap.get(k);
+
+                if (tmp1.x == tmp2.x && tmp1.y == tmp2.y) {
+                    if (player == "P1") {
+                        tmp2.x = 0;
+                        tmp2.y = 0;
+                    } else if (player == "P2") {
+                        tmp2.x = 44;
+                        tmp2.y = 0;
+                    } else if (player == "P3") {
+                        tmp2.x = 0;
+                        tmp2.y = 44;
+                    } else if (player == "P4") {
+                        tmp2.x = 44;
+                        tmp2.y = 44;
+                    }
+
+                    playersMap.put(player, tmp2);
+
+                    if (k == "P1") {
+                        tmp1.x = 0;
+                        tmp1.y = 0;
+                    } else if (k == "P2") {
+                        tmp1.x = 44;
+                        tmp1.y = 0;
+                    } else if (k == "P3") {
+                        tmp1.x = 0;
+                        tmp1.y = 44;
+                    } else if (k == "P4") {
+                        tmp1.x = 44;
+                        tmp1.y = 44;
+                    }
+
+                    playersMap.put(k, tmp1);
+                }
+
+            }
+        }
+    }
+
+    void winner() {                          //Find who is the winner
+        int highest_score = 0;
+        String winner = "not yet";
+        for (String k : playersMap.keySet()) {
+            if (playersMap.get(k).score > highest_score) {
+                winner = playersMap.get(k).player;
+            }
+        }
+        System.out.println(winner);
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
