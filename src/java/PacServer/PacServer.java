@@ -60,7 +60,7 @@ public class PacServer extends HttpServlet {
 
         synchronized (myGameLogic) {
             myGameLogic.keyStroke(key, "P" + attribute);                 //call game logic and update
-            myGameLogic.playerColide("P" + attribute);
+          //  myGameLogic.playerColide("P" + attribute);
             myGameLogic.notifyAll();                                  //awaken all the threads which are wait in doGet method.
         }
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
