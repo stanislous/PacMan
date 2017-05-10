@@ -13,7 +13,9 @@ public class gameLogic {
 
     HashMap<String, Dots> foodsMap;
     HashMap<String, Players> playersMap;
-    final static int v = 40;
+    final static int v = 20;
+    static int count = 0;
+    //static String Win = "";
 
     public gameLogic() {
 
@@ -30,6 +32,7 @@ public class gameLogic {
         int key = Integer.parseInt(keyStroke);
         updatePlayerPosition(key, player);
         eatFoods(player);
+        playerColide(player);
     }
 
     void insertFood() {        //insert food items randomly and put them into hashmap
@@ -144,6 +147,7 @@ public class gameLogic {
                         if (null == dot.color) {
                             tmp.score += 5;
                         } else {
+                            count++;
                             switch (dot.color) {
                                 case "R":
                                     tmp.score += 1;
@@ -158,14 +162,13 @@ public class gameLogic {
                         }
                         playersMap.put(player, tmp);
                         foodsMap.remove(i);
-//                        if (!foodsMap.isEmpty()) {
-//                        } else {
-//                            winner();
-//                        }
                     }
 
                 }
             }
+        }
+        if (count == v) {
+            Winner();
         }
     }
 
@@ -177,18 +180,22 @@ public class gameLogic {
                 Players tmp1 = playersMap.get(k);
 
                 if (tmp1.x == tmp2.x && tmp1.y == tmp2.y) {
-                    if (player == "P1") {
+                    if (tmp2.player == "P1") {
                         tmp2.x = 0;
                         tmp2.y = 0;
-                    } else if (player == "P2") {
+                        tmp2.score -= 5;
+                    } else if (tmp2.player == "P2") {
                         tmp2.x = 44;
                         tmp2.y = 0;
-                    } else if (player == "P3") {
+                        tmp2.score -= 5;
+                    } else if (tmp2.player == "P3") {
                         tmp2.x = 0;
                         tmp2.y = 44;
-                    } else if (player == "P4") {
+                        tmp2.score -= 5;
+                    } else if (tmp2.player == "P4") {
                         tmp2.x = 44;
                         tmp2.y = 44;
+                        tmp2.score -= 5;
                     }
 
                     playersMap.put(player, tmp2);
@@ -196,15 +203,19 @@ public class gameLogic {
                     if (k == "P1") {
                         tmp1.x = 0;
                         tmp1.y = 0;
+                        tmp1.score -= 5;
                     } else if (k == "P2") {
                         tmp1.x = 44;
                         tmp1.y = 0;
+                        tmp1.score -= 5;
                     } else if (k == "P3") {
                         tmp1.x = 0;
                         tmp1.y = 44;
+                        tmp1.score -= 5;
                     } else if (k == "P4") {
                         tmp1.x = 44;
                         tmp1.y = 44;
+                        tmp1.score -= 5;
                     }
 
                     playersMap.put(k, tmp1);
@@ -214,15 +225,18 @@ public class gameLogic {
         }
     }
 
-    void winner() {                          //Find who is the winner
+    void Winner() {                          //Find who is the winner
         int highest_score = 0;
         String winner = "not yet";
         for (String k : playersMap.keySet()) {
             if (playersMap.get(k).score > highest_score) {
+                highest_score = playersMap.get(k).score;
                 winner = playersMap.get(k).player;
             }
         }
-        System.out.println(winner);
+        System.out.println(winner+" is the winner.");
+        System.out.println("=================================================================");
+        //return winner;
     }
 
 }

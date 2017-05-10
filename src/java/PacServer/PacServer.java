@@ -40,8 +40,7 @@ public class PacServer extends HttpServlet {
                     out.println(myGameLogic.completeJsonObject());
                     out.println();
                     out.flush();
-                    myGameLogic.wait();                                  //wait any thread while the game window is updated
-
+                    myGameLogic.wait();            //wait any thread while the game window is updated
                 }
             }
 
@@ -56,7 +55,7 @@ public class PacServer extends HttpServlet {
 
         String key = request.getParameter("keypress");
         HttpSession session = request.getSession();
-        String attribute = (String) session.getAttribute("player");                  //getting the unique which is being played
+        String attribute = (String) session.getAttribute("player");          //getting the unique which is being played
 
         synchronized (myGameLogic) {
             myGameLogic.keyStroke(key, "P" + attribute);                 //call game logic and update
