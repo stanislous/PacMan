@@ -15,7 +15,6 @@ public final class gameLogic {
     HashMap<String, Players> playersMap;
     final static int number_of_dots = 20;
     static int count = 0;
-    //static String Win = "";
 
     public gameLogic() {
 
@@ -45,7 +44,7 @@ public final class gameLogic {
 
     void insertPlayers() {      //make 4 players and put them into hashmap
 
-        Players player1 = new Players(players(1), 0, 0, 0);
+        Players player1 = new Players(players(1), 0, 0, 0);        //give them initial a position
         playersMap.put(player1.player, player1);
         Players player2 = new Players(players(2), 0, 44, 0);
         playersMap.put(player2.player, player2);
@@ -217,7 +216,6 @@ public final class gameLogic {
                         tmp1.y = 44;
                         tmp1.score -= 3;
                     }
-
                     playersMap.put(k, tmp1);
                 }
 
@@ -235,7 +233,7 @@ public final class gameLogic {
             }
         }
         System.out.println(winner + " is the winner.");
-        System.out.println("=================================================================");
+        
         //return winner;
     }
 
