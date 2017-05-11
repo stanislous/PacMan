@@ -10,7 +10,7 @@ class Dots {
     int y;
     String color;
 
-    Dots(String color, int x, int y) {
+    Dots(String color, int x, int y) {      //assign attributes for players
 
         this.x = x;
         this.y = y;
@@ -18,7 +18,7 @@ class Dots {
 
     }
 
-    JsonArray DotFormat() {
+    JsonArray DotFormat() {                         //format foods objects to json objects
 
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 

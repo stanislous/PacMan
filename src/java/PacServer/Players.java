@@ -11,7 +11,7 @@ class Players {
     int score;
     String player;
 
-    Players(String player, int score, int x, int y) {
+    Players(String player, int score, int x, int y) {     //assign attributes for players
 
         this.x = x;
         this.y = y;
@@ -20,7 +20,7 @@ class Players {
 
     }
    
-    JsonArray PlayerFormat() {
+    JsonArray PlayerFormat() {                     //format player objects to json objects
 
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
