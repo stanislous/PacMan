@@ -11,9 +11,10 @@ import javax.json.JsonObject;
  */
 public final class gameLogic {
 
-    HashMap<String, Dots> foodsMap;
+    HashMap<String, Dots> foodsMap;                      //Two hashMaps for foods and 4 players
     HashMap<String, Players> playersMap;
-    final static int number_of_dots = 20;
+    
+    final static int number_of_dots = 20;                //Number of Foods
     static int count = 0;
     //static String Win = "";
 
@@ -22,8 +23,8 @@ public final class gameLogic {
         foodsMap = new HashMap<>();
         playersMap = new HashMap<>();
 
-        this.insertFood();
-        this.insertPlayers();
+        this.insertFood();              //insert foods and player to the board whenever a player
+        this.insertPlayers();           //comes to play the game.               
     }
 
     Random rand = new Random();
@@ -39,7 +40,7 @@ public final class gameLogic {
 
         for (int i = 0; i < number_of_dots; i++) {
             Dots dot = new Dots(Color(), rand.nextInt(44), rand.nextInt(44));
-            foodsMap.put(Integer.toString(dot.x) + "|" + Integer.toString(dot.y), dot);
+            foodsMap.put(Integer.toString(dot.x) + "|" + Integer.toString(dot.y), dot);     //given a unique key for all foods
         }
     }
 
@@ -112,19 +113,19 @@ public final class gameLogic {
             Players tmp = playersMap.get(player);
 
             if (k.equals(player)) {
-                if (key == 37 && tmp.x != 0) {   //Left
+                if (key == 37 && tmp.x != 0) {   //Left movement
                     tmp.x -= 1;
                 } else if (key == 37 && tmp.x == 0) {
                     tmp.x = 44;
-                } else if (key == 39 && tmp.x != 44) { //Right
+                } else if (key == 39 && tmp.x != 44) { //Right movement
                     tmp.x += 1;
                 } else if (key == 39 && tmp.x == 44) {
                     tmp.x = 0;
-                } else if (key == 38 && tmp.y != 0) {  //Up
+                } else if (key == 38 && tmp.y != 0) {  //Up movement
                     tmp.y -= 1;
                 } else if (key == 38 && tmp.y == 0) {
                     tmp.y = 44;
-                } else if (key == 40 && tmp.y != 44) {  //Down
+                } else if (key == 40 && tmp.y != 44) {  //Down movement
                     tmp.y += 1;
                 } else if (key == 40 && tmp.y == 44) {
                     tmp.y = 0;
@@ -161,13 +162,13 @@ public final class gameLogic {
                             }
                         }
                         playersMap.put(player, tmp);
-                        foodsMap.remove(i);
+                        foodsMap.remove(i);            //remove foods if it is eaten.
                     }
 
                 }
             }
         }
-        if (count == number_of_dots) {
+        if (count == number_of_dots) {                 //if all foods are eaten, check who is winner
             Winner();
         }
     }
@@ -179,8 +180,8 @@ public final class gameLogic {
             if (playersMap.get(k) != playersMap.get(player)) {
                 Players tmp1 = playersMap.get(k);
 
-                if (tmp1.x == tmp2.x && tmp1.y == tmp2.y) {
-                    if (tmp2.player == "P1") {
+                if (tmp1.x == tmp2.x && tmp1.y == tmp2.y) {    //if there is a collide, reset the particular players
+                    if (tmp2.player == "P1") {                 //and reduce score.
                         tmp2.x = 0;
                         tmp2.y = 0;
                         tmp2.score -= 3;
@@ -227,7 +228,7 @@ public final class gameLogic {
 
     void Winner() {                          //Find who is the winner
         int highest_score = 0;
-        String winner = "not yet";
+        String winner = "";
         for (String k : playersMap.keySet()) {
             if (playersMap.get(k).score > highest_score) {
                 highest_score = playersMap.get(k).score;

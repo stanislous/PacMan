@@ -55,11 +55,11 @@ public class PacServer extends HttpServlet {
 
         String key = request.getParameter("keypress");
         HttpSession session = request.getSession();
-        String attribute = (String) session.getAttribute("player");          //getting the unique which is being played
+        String attribute = (String) session.getAttribute("player");     //getting the unique which is being played
 
         synchronized (myGameLogic) {
-            if (pl > 4) {   
-            myGameLogic.keyStroke(key, "P" + attribute);                 //call game logic and update
+            if (pl > 4) {                                              //start the playing the game if and only if there are 4 players
+            myGameLogic.keyStroke(key, "P" + attribute);               //call game logic and update
             myGameLogic.notifyAll();                                  //awaken all the threads which are wait in doGet method.
         }
         }
