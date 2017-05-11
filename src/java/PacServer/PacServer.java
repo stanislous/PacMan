@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author stanislous
+ * @author E/13/377 & E/13/270
  */
 @WebServlet(name = "PacServer", urlPatterns = {"/stream"})
 public class PacServer extends HttpServlet {
@@ -58,9 +58,10 @@ public class PacServer extends HttpServlet {
         String attribute = (String) session.getAttribute("player");          //getting the unique which is being played
 
         synchronized (myGameLogic) {
+            if (pl > 4) {   
             myGameLogic.keyStroke(key, "P" + attribute);                 //call game logic and update
-          //  myGameLogic.playerColide("P" + attribute);
             myGameLogic.notifyAll();                                  //awaken all the threads which are wait in doGet method.
+        }
         }
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
