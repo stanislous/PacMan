@@ -7,14 +7,14 @@ import javax.json.JsonObject;
 
 /**
  *
- * @author E/13/377 & E/13/270
+ * @author E/13/377 & E/13/285
  */
 public final class gameLogic {
 
     HashMap<String, Dots> foodsMap;                      //Two hashMaps for foods and 4 players
     HashMap<String, Players> playersMap;
-    
-    final static int number_of_dots = 20;                //Number of Foods
+
+    final static int number_of_dots = 15;                //Number of Foods
     static int count = 0;
 
     public gameLogic() {
@@ -30,9 +30,9 @@ public final class gameLogic {
 
     void keyStroke(String keyStroke, String player) {
         int key = Integer.parseInt(keyStroke);
-            updatePlayerPosition(key, player);
-            eatFoods(player);
-            playerColide(player);
+        updatePlayerPosition(key, player);
+        eatFoods(player);
+        playerColide(player);
     }
 
     void insertFood() {        //insert food items randomly and put them into hashmap
@@ -53,7 +53,6 @@ public final class gameLogic {
         playersMap.put(player3.player, player3);
         Players player4 = new Players(players(4), 0, 44, 44);
         playersMap.put(player4.player, player4);
-
     }
 
     JsonArrayBuilder comleteDotArray() {       //json array for foods
@@ -132,7 +131,6 @@ public final class gameLogic {
                 playersMap.put(player, tmp);
             }
         }
-
     }
 
     void eatFoods(String player) {                                        //Remove foods that is eaten and update score board
@@ -163,12 +161,8 @@ public final class gameLogic {
                         playersMap.put(player, tmp);
                         foodsMap.remove(i);            //remove foods if it is eaten.
                     }
-
                 }
             }
-        }
-        if (count == number_of_dots) {                 //if all foods are eaten, check who is winner
-            Winner();
         }
     }
 
@@ -219,23 +213,7 @@ public final class gameLogic {
                     }
                     playersMap.put(k, tmp1);
                 }
-
             }
         }
     }
-
-    void Winner() {                          //Find who is the winner
-        int highest_score = 0;
-        String winner = "";
-        for (String k : playersMap.keySet()) {
-            if (playersMap.get(k).score > highest_score) {
-                highest_score = playersMap.get(k).score;
-                winner = playersMap.get(k).player;
-            }
-        }
-        System.out.println(winner + " is the winner.");
-        
-        //return winner;
-    }
-
 }

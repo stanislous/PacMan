@@ -19,7 +19,7 @@ class Players {
         this.score = score;
 
     }
-   
+
     JsonArray PlayerFormat() {                     //format player objects to json objects
 
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
@@ -30,7 +30,7 @@ class Players {
         arrayBuilder.add(this.y);
 
         return arrayBuilder.build();
-        
+
     }
 
 }

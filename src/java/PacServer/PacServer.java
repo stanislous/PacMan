@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author E/13/377 & E/13/270
+ * @author E/13/377 & E/13/285
  */
 @WebServlet(name = "PacServer", urlPatterns = {"/stream"})
 public class PacServer extends HttpServlet {
@@ -59,9 +59,9 @@ public class PacServer extends HttpServlet {
 
         synchronized (myGameLogic) {
             if (pl > 4) {                         //start the game if and only if 4 players comes to play the game
-            myGameLogic.keyStroke(key, "P" + attribute);                 //call game logic and update
-            myGameLogic.notifyAll();                                  //awaken all the threads which are wait in doGet method.
-        }
+                myGameLogic.keyStroke(key, "P" + attribute);                 //call game logic and update
+                myGameLogic.notifyAll();                                  //awaken all the threads which are wait in doGet method.
+            }
         }
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
